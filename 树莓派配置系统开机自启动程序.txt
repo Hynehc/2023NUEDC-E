@@ -1,0 +1,57 @@
+树莓派配置系统开机自启动程序
+
+在/home/pi 创建好test.py 和 test1.py
+
+在test1.py写入
+import os
+os.system('lxterminal')
+
+在test.py写入
+import time
+import os
+time.sleep(3)
+os.system('python3 /home/pi/Desktop/pycode/code_1/main.py') // 要运行的文件
+
+一：
+进入/home/pi/.config 路径
+cd /home/pi/.config
+
+找到autostart 路径，没有就创建一个
+mkdir autostart
+
+然后进入autostart 路径
+cd autostart
+
+在autostart 中创建一个.desktop 尾缀文件，例如test.desktop
+touch test.desktop
+
+该文件中输入：
+[Desktop Entry]
+Name=PChost
+Comment=Python Program
+Exec=lxterminal -e sudo python3 /home/pi/test1.py
+Icon=/home/pi/python_games/4row_black.png // 随便一张图片
+Terminal=true
+MultipleArgs=false
+Type=Application
+Categories=Application;Development;
+StartupNotify=true
+
+sudo reboot
+
+二：
+打开.bashrc文件
+sudo nano /home/pi/.bashrc
+
+拉到文件的最后一行，在下面添加，其中echo语句用于显示.bashrc文件中的命令是在启动和连接到bash控制台时执行的。例如使用SSH连接到树莓派时将会打印 Running at boot
+echo Running at boot 
+sudo python3 /home/pi/test.py
+
+sudo reboot
+
+
+
+
+
+
+
